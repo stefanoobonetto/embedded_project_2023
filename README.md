@@ -51,3 +51,20 @@ These are some other resources:
   <li><a href="">Youtube Video</a></li>
   <li><a href="">PP Presentation</a></li>
 </ul>
+
+## Job Division
+<table>
+  <tr>
+    <td>Motors setup and movement alghoritms</td><td>Mattia Rigon</td>
+  </tr>
+  <tr>
+    <td>UART and Wi-Fi communication</td><td>Stefano Bonetto, Simone Roman</td>
+  </tr>
+  <tr>
+    <td>Joystick interface, graphics and message sending</td><td>Stefano Bonetto</td>
+  </tr>
+  <tr>
+    <td>Sensors setup, Autoparking mode and ABS mode</td><td>Stefano Bonetto, Simone Roman</td>
+  </tr>
+</table>
+
