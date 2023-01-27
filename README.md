@@ -25,6 +25,7 @@ For our project we've used:
   <li><a href="https://components101.com/modules/l293n-motor-driver-module">L298N Motor Driver Module</a></li>
   <li><a href="https://www.electroschematics.com/hc-sr04-datasheet/">HC-SR04</a> ultrasonic module</li>
   <li><a href="https://education.makeblock.com/help/cyberpi-series-9g-micro-servo-metal-gear/">9g Micro Servo</a></li>
+  <li>9V battery</li>
 </ul>
 
 <table>
