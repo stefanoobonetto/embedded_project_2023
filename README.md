@@ -41,4 +41,13 @@ For our project we've used:
 We've build the Joystick Controller with an <a href="https://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/SIMPLELINK_MSP432_SDK/1.20.00.45/exports/docs/simplelink_mcu_sdk/project0/project0/docs/MSP-EXP432P401R.html">MSP432P401R Launchpad</a> connected to the <a href="https://www.ti.com/tool/BOOSTXL-EDUMKII">BOOSTXL-EDUMKII</a> and to the <a href="https://www.espressif.com/en/products/socs/esp32">ESP32 Wi-Fi and Bluetooth module</a>.<br>
 We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-smart-robot-car-kit-v-4-0">ELEGOO UNO R3 Project Smart Robot Car V 4.0</a> with his built-in motors and wheels, but it's not mandatory, you can use whatever chassis you prefer, we have use four <a href="https://www.adafruit.com/product/3777">DC motor</a> (from 3V to 6V).
 
+## Project Layout
 
+## Build, Burn and Run the project
+
+## Other resources
+These are some other resources:
+<ul>
+  <li><a href="">Youtube Video</a></li>
+  <li><a href="">PP Presentation</a></li>
+</ul>
