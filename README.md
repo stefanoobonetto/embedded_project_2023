@@ -66,5 +66,8 @@ These are some other resources:
   <tr>
     <td>Sensors setup, Autoparking mode and ABS mode</td><td>Stefano Bonetto, Simone Roman</td>
   </tr>
+  <tr>
+    <td>Project debug and test</td><td>Simone Roman</td>
+  </tr>
 </table>
 
