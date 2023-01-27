@@ -100,16 +100,16 @@ These are some other resources:
     <td>Motors setup and movement alghoritms</td><td>Mattia Rigon</td>
   </tr>
   <tr>
-    <td>UART and Wi-Fi communication</td><td>Stefano Bonetto, Simone Roman</td>
+    <td>UART and Wi-Fi communication</td><td>Simone Roman</td>
   </tr>
   <tr>
     <td>Joystick interface, graphics and message sending</td><td>Stefano Bonetto</td>
   </tr>
   <tr>
-    <td>Sensors setup, Autoparking mode and ABS mode</td><td>Stefano Bonetto, Simone Roman</td>
+    <td>Sensors setup, Autoparking mode and ABS mode</td><td>Stefano Bonetto, Simone Roman, Mattia Rigon</td>
   </tr>
   <tr>
-    <td>Project debug and test</td><td>Simone Roman</td>
+    <td>Project debug and test</td><td>Stefano Bonetto, Simone Roman, Mattia Rigon</td>
   </tr>
 </table>
 
