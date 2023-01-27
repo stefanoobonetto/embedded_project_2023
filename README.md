@@ -1,3 +1,9 @@
 # Auto-Parking Car
-This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the course of Embedded Software for the Internet of Things (UNITN ICE)
-<br><img src = "https://user-images.githubusercontent.com/106806808/214949012-11d4c1a4-8c19-4645-9019-a4a329ae3a71.jpg" style="width:400px"></img>
+This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the uniTN course of Embedded Software for the Internet of Things.<br><br>
+It's basically a Wi-Fi remoted controlled car, we can drive it in three modes:
+<ol>
+  <li>Normal joystick mode</li>
+  <li>Joystick mode with ABS (autobraking system)</li>
+  <li>Autoparking mode</li>
+</ol>
+When the autoparking mode is running
