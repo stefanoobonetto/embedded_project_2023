@@ -126,7 +126,65 @@ void ADC14_IRQHandler(void)
 
 
 ## Build, Burn and Run the project
-PIN MAPPING
+#### PIN MAPPING
+<table style="text-align: center">
+  <tr>
+    <td>PIN</td>
+    <td>FUNCTION</td>
+    <td>NOTES</td>
+  </tr>
+  <tr>
+    <td>3.2</td> 
+    <td>RX</td>
+    <td>it's connected to ESP's pin G16. From there, the board receive controller's 	messages</td>
+  </tr>
+  <tr>
+    <td>2.7</td>
+    <td>Echo</td>
+    <td>Connected to Ultrasonic Sensor's Echo pin</td>
+  </tr>
+  <tr>
+    <td>2.6</td>
+    <td>Trig</td>
+	<td>Connected to Ultrasonic Sensor's Trig pin</td>
+  </tr>
+  <tr>
+    <td>2.4</td>
+    <td>EN_2</td>
+    <td>Connected to L298N's EN_B pin</td>
+  </tr>
+  <tr>
+    <td>5.6</td>
+ 	<td>EN_1</td>
+    <td>Connected to L298N's EN_A pin</td>
+  </tr>
+  <tr>
+    <td>5.7</td>
+    <td>IN2_2</td>
+    <td>Connected to L298N's IN3 pin</td>
+  </tr>
+   <tr>
+    <td>1.7</td>
+    <td>IN1_1</td>
+    <td>Connected to L298N's IN1 pin</td>
+  </tr>
+   <tr>
+    <td>5.0</td>
+    <td>IN2_1</td>
+    <td>Connected to L298N's IN2 pin</td>
+  </tr>
+   <tr>
+    <td>5.2</td>
+    <td>IN1_2</td>
+    <td>Connected to L298N's IN4 pin</td>
+  </tr> 
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+</table>
 
 ## Other resources
 These are some other resources:
