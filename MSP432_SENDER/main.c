@@ -9,6 +9,7 @@
 
 /**
  * main.c
+ * file di simo il figo
  */
 
 void initHW(){
