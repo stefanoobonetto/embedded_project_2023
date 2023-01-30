@@ -3,11 +3,10 @@
 #include <stdbool.h>
 #include <ConnectionUart.h>
 
-
 volatile uint8_t RXData = 0;
 
-const eUSCI_UART_ConfigV1 uartConfig =
-{
+const eUSCI_UART_ConfigV1 uartConfig = {
+        
         EUSCI_A_UART_CLOCKSOURCE_SMCLK,                          // SMCLK Clock Source
         13,                                                      // BRDIV = 13
         0,                                                       // UCxBRF = 0
@@ -18,13 +17,12 @@ const eUSCI_UART_ConfigV1 uartConfig =
         EUSCI_A_UART_MODE,                                       // UART mode
         EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION,           // Oversampling
         EUSCI_A_UART_8_BIT_LEN                                   // 8 bit data length
+
 };
 
 void configureUart(){
 
-    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3,
-             GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
-
+    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P3, GPIO_PIN2 | GPIO_PIN3, GPIO_PRIMARY_MODULE_FUNCTION);
 
     FlashCtl_setWaitState(FLASH_BANK0, 1);
     FlashCtl_setWaitState(FLASH_BANK1, 1);
@@ -41,10 +39,7 @@ void configureUart(){
     UART_enableInterrupt(EUSCI_A2_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
     Interrupt_enableInterrupt(INT_EUSCIA2);
     Interrupt_enableSleepOnIsrExit();
-
 }
-
-
 
 void EUSCIA2_IRQHandler(void){
 
