@@ -202,9 +202,9 @@ void auto_park_mode(){
     char string[40];
     strcpy(string, "AUTO-PARK MODE");
     draw(string, 22, 64, 50);
-    strcpy(string, "to interrupt the process");
-    draw(string, 22, 64, 65);
     strcpy(string, "press the BACK button");
+    draw(string, 22, 64, 65);
+    strcpy(string, "to exit");
     draw(string, 22, 64, 75);
 
     if(semaforo){
