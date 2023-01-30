@@ -6,6 +6,7 @@
 #include <Display.h>
 
 void initHW(){
+    
     Interrupt_disableMaster();
 
     /* Set the core voltage level to VCORE1 */
@@ -23,8 +24,9 @@ void initHW(){
     CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
     graphicsInit();
-
+    
     adcInit();
+   
     configureUart();
 }
 
@@ -35,7 +37,9 @@ void main(void){
     initHW();
 
     while(1){
+        
         Interrupt_enableSleepOnIsrExit();
         PCM_gotoLPM0InterruptSafe();
+        
     }
 }
