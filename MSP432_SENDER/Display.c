@@ -15,7 +15,7 @@ void clear_display_invisible(){
     Graphics_clearDisplay(&invisibleContext);
 }
 
-void draw(char string[],int x,int y,int z){
+void draw(char string[],int x,int y,int z){    //draw string
     Graphics_drawStringCentered(&sContext, (int8_t *)string, x, y, z, OPAQUE_TEXT);
 }
 
@@ -24,8 +24,8 @@ void draw_rectangle(int v1,int v2,int v3,int v4){
     GrRectDraw(&sContext, &rect1);
 }
 
-void graphicsInit()
-{
+void graphicsInit(){    //initialize the display and the WELCOME screen
+    
     Crystalfontz128x128_Init();
     Crystalfontz128x128_SetOrientation(LCD_ORIENTATION_UP);
 
@@ -55,7 +55,7 @@ void graphicsInit()
     draw(string, 22, 64, 100);
 }
 
-void draw_circle(int choice){
+void draw_circle(int choice){   //draw the circle in the selected choice
     switch (choice)
     {
     case 0:
@@ -81,7 +81,6 @@ void draw_circle(int choice){
         break;
     }
 }
-    // pallino 1 quadrato
 
 
 void graphics_first_menu(int sel1){
@@ -90,7 +89,6 @@ void graphics_first_menu(int sel1){
     GrClearDisplay(&invisibleContext);
     sel = 1;
 
-    //second screen elements
     draw_rectangle(5, 10, 123, 40);
     draw_rectangle(5, 49, 123, 79);
     draw_rectangle(5, 88, 123, 118);
@@ -102,30 +100,13 @@ void graphics_first_menu(int sel1){
 
     char string[3][40];
     strcpy(string[0], "joystick mode");
-    Graphics_drawString(&sContext, (int8_t *)string[0], 22, 35, 22, OPAQUE_TEXT);
+    draw(string[0], 22, 35, 22);
     strcpy(string[1], "anticollision");
-    Graphics_drawString(&sContext, (int8_t *)string[1], 22, 35, 61, OPAQUE_TEXT);
+    draw(string[1], 22, 35, 61);
     strcpy(string[2], "autopark mode");
-    Graphics_drawString(&sContext, (int8_t *)string[2], 22, 35, 100, OPAQUE_TEXT);
-
-    switch(sel1){
-        case 0:
-            Graphics_fillCircle(&sContext, 20, 25, 5);
-            Graphics_fillCircle(&invisibleContext, 20, 64, 5);
-            Graphics_fillCircle(&invisibleContext, 20, 103, 5);
-            break;
-        case 1:
-            Graphics_fillCircle(&invisibleContext, 20, 25, 5);
-            Graphics_fillCircle(&sContext, 20, 64, 5);
-            Graphics_fillCircle(&invisibleContext, 20, 103, 5);
-            break;
-        case 2:
-            Graphics_fillCircle(&invisibleContext, 20, 25, 5);
-            Graphics_fillCircle(&invisibleContext, 20, 64, 5);
-            Graphics_fillCircle(&sContext, 20, 103, 5);
-            break;
-    }
-
+    draw(string, 22, 35, 100);
+    
+    draw_circle(sel1);
 }
 
 
