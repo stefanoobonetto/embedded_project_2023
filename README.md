@@ -126,6 +126,7 @@ void ADC14_IRQHandler(void)
 
 
 ## Build, Burn and Run the project
+PIN MAPPING
 
 ## Other resources
 These are some other resources:
