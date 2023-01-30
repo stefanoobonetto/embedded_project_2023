@@ -61,6 +61,7 @@ void setup() {
     return;
   }
 
+  //SET UART
   SerialPort.begin(115200, SERIAL_8N1, 17, 16); //17 rx 16 tx
 }
 
@@ -69,20 +70,11 @@ void loop() {
   
   if(SerialPort.available())
   {
-      //Serial.print(SerialPort.read());
+      //take data via UART
       myData.a = SerialPort.read();
-      Serial.println(myData.a);
+
       
       // Send message via ESP-NOW
       result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
   }
-  
-   
-  if (result == ESP_OK) {
-    //Serial.println("Sending confirmed");
-  }
-  else {
-    //Serial.println("Sending error");
-  }
-  //delay(1000);
 }
