@@ -6,11 +6,11 @@
 
 Servo myservo;  // create servo object to control a servo
  
-int posVal = 0;    // variable to store the servo position
 int servoPin = 2; // Servo motor pin
-int isDritto = 1;
+int isDritto = 1; //Boolean for know the position
 
-HardwareSerial Serial_1(2); // use UART2
+
+
 
 void servoDX(){
   myservo.write(0);       // tell servo to go to position in variable 'pos'
@@ -35,6 +35,7 @@ struct_message myData;
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myData, incomingData, sizeof(myData));
 
+  //Set servo position
   if(myData.a==201){
     if(isDritto){
       servoDX();
@@ -48,14 +49,13 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
     }
   }
 
-  Serial.print("Data received: ");
-  char x = myData.a;
-  Serial.println(x);
-  Serial_1.print(x);
+  Serial_1.print(myData.a);
 }
 
+HardwareSerial Serial_1(2); // use UART2
  
 void setup() {  
+ //Set UART COMMUNICATION
   Serial_1.begin(115200, SERIAL_8N1, 17, 16);
   // Set up Serial Monitor
   Serial.begin(115200);
@@ -72,6 +72,7 @@ void setup() {
   // Register callback function
   esp_now_register_recv_cb(OnDataRecv);
   
+  //SETUP SERVO
   myservo.attach(servoPin, 500, 2500);  // attaches the servo on servoPin to the servo object
 }
 void loop() {
