@@ -7,12 +7,12 @@
 Graphics_Context sContext;
 Graphics_Context invisibleContext;
 
-void clear_display_visible(){
-    Graphics_clearDisplay(&sContext);
+void clear_display_visible(){ 
+    Graphics_clearDisplay(&sContext); 
 }
 
-void clear_display_invisible(){
-    Graphics_clearDisplay(&invisibleContext);
+void clear_display_invisible(){ 
+    Graphics_clearDisplay(&invisibleContext); 
 }
 
 void draw(char string[],int x,int y,int z){    //draw string
@@ -24,7 +24,7 @@ void draw_rectangle(int v1,int v2,int v3,int v4){
     GrRectDraw(&sContext, &rect1);
 }
 
-void graphicsInit(){    //initialize the display and the WELCOME screen
+void graphicsInit(){                         //initialize the display and the WELCOME screen
     
     Crystalfontz128x128_Init();
     Crystalfontz128x128_SetOrientation(LCD_ORIENTATION_UP);
@@ -55,38 +55,34 @@ void graphicsInit(){    //initialize the display and the WELCOME screen
     draw(string, 22, 64, 100);
 }
 
-void draw_circle(int choice){   //draw the circle in the selected choice
-    switch (choice)
-    {
-    case 0:
-        Graphics_fillCircle(&sContext, 20, 25, 5);
-        Graphics_fillCircle(&invisibleContext, 20, 64, 5);
-        Graphics_fillCircle(&invisibleContext, 20, 103, 5);
-        break;
-    
-    case 1:
-        Graphics_fillCircle(&invisibleContext, 20, 25, 5);
-        Graphics_fillCircle(&sContext, 20, 64, 5);
-        Graphics_fillCircle(&invisibleContext, 20, 103, 5);
-        break;
-    
-    case 2:
-        Graphics_fillCircle(&invisibleContext, 20, 25, 5);
-        Graphics_fillCircle(&invisibleContext, 20, 64, 5);
-        Graphics_fillCircle(&sContext, 20, 103, 5);
-        break;
+void draw_circle(int choice){                                    //draw the circle in the selected choice
+    switch (choice){
+        case 0:
+            Graphics_fillCircle(&sContext, 20, 25, 5);
+            Graphics_fillCircle(&invisibleContext, 20, 64, 5);
+            Graphics_fillCircle(&invisibleContext, 20, 103, 5);
+            break;
 
+        case 1:
+            Graphics_fillCircle(&invisibleContext, 20, 25, 5);
+            Graphics_fillCircle(&sContext, 20, 64, 5);
+            Graphics_fillCircle(&invisibleContext, 20, 103, 5);
+            break;
 
-    default:
-        break;
+        case 2:
+            Graphics_fillCircle(&invisibleContext, 20, 25, 5);
+            Graphics_fillCircle(&invisibleContext, 20, 64, 5);
+            Graphics_fillCircle(&sContext, 20, 103, 5);
+            break;
+        default:
+            break;
     }
 }
 
 
 void graphics_first_menu(int sel1){
-
-    Graphics_clearDisplay(&sContext);
-    GrClearDisplay(&invisibleContext);
+    clear_display_visible();
+    clear_display_invisible();
     sel = 1;
 
     draw_rectangle(5, 10, 123, 40);
