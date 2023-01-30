@@ -6,5 +6,5 @@ void configureUart();
 void EUSCIA2_IRQHandler(void);
 
 
-#endif 
+#endif /* CONNECTIONUART_H_ */
 
