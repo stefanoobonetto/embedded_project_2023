@@ -218,7 +218,7 @@ At the beginning we were using a motor shield which wasn't able to serve four mo
 ## Other resources
 These are some other resources:
 <ul>
-  <li><a href="">Youtube Video</a></li>
+  <li><a href="https://youtu.be/69KgFIKE7XY">Youtube Video</a></li>
   <li><a href="https://docs.google.com/presentation/d/1h2l9AZ-rZWvKXyS_umFpl_V0j3etKmsssWN0EkKLERQ/edit#slide=id.p">PowerPoint Presentation</a></li>
 </ul>
 
