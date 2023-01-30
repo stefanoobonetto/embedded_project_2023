@@ -131,7 +131,7 @@ void ADC14_IRQHandler(void)
 These are some other resources:
 <ul>
   <li><a href="">Youtube Video</a></li>
-  <li><a href="">PP Presentation</a></li>
+  <li><a href="https://docs.google.com/presentation/d/1h2l9AZ-rZWvKXyS_umFpl_V0j3etKmsssWN0EkKLERQ/edit#slide=id.p">PowerPoint Presentation</a></li>
 </ul>
 
 ## Job Division
