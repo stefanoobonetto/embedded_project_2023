@@ -126,12 +126,13 @@ void ADC14_IRQHandler(void)
 
 
 ## Build, Burn and Run the project
-#### PIN MAPPING
+### Pin Mapping
+#### MSP432 Receiver
 <table style="text-align: center">
   <tr>
-    <td>PIN</td>
-    <td>FUNCTION</td>
-    <td>NOTES</td>
+    <td><b>PIN</b></td>
+    <td><b>FUNCTION</b></td>
+    <td><b>NOTES</b></td>
   </tr>
   <tr>
     <td>3.2</td> 
@@ -178,6 +179,25 @@ void ADC14_IRQHandler(void)
     <td>IN1_2</td>
     <td>Connected to L298N's IN4 pin</td>
   </tr>  
+</table>
+We've connected the board to a power-bank with his micro-USB connector.
+
+#### L298N
+L298N is designed to have two motors connected, since we wanted to control four, we connected the left motors to OUT1 and OUT2 in pairs and similarly we connected the right motors to OUT3 and OUT4.
+At the beginning we were using a motor shield which wasn't able to serve four motors simultaneously because it accepted only 5V power; so we have bought a new motor shield (L298N) and ae provide 9V power supply.
+
+#### MSP Sender
+<table style="text-align: center">
+  <tr>
+    <td><b>PIN</b></td>
+    <td><b>FUNCTION</b></td>
+    <td><b>NOTES</b></td>
+  </tr>
+  <tr>
+    <td>3.3</td> 
+    <td>TX</td>
+    <td>it's connected to ESP's pin G17. From there, the board send messages to the car</td>
+  </tr>
 </table>
 
 ## Other resources
