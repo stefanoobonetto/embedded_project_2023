@@ -177,13 +177,7 @@ void ADC14_IRQHandler(void)
     <td>5.2</td>
     <td>IN1_2</td>
     <td>Connected to L298N's IN4 pin</td>
-  </tr> 
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  
+  </tr>  
 </table>
 
 ## Other resources
