@@ -67,8 +67,8 @@ void adcInit(){
    ADC14_toggleConversionTrigger();
 }
 
-void PORT1_IRQHandler(void) //BACK button
-{
+void PORT1_IRQHandler(void){ //BACK button
+
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
@@ -128,6 +128,7 @@ void PORT3_IRQHandler(void){ //DOWN button
 }
 
 void PORT4_IRQHandler(void){ //JOYSTICK SELECT
+   
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P4);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P4, status);
@@ -217,6 +218,7 @@ void auto_park_mode(){
 }
 
 void keep_distance(bool on){
+   
     int contatore=0;
 
     if(on){
@@ -237,6 +239,7 @@ void keep_distance(bool on){
 }
 
 void joystick_mode_setup(){
+   
     Graphics_clearDisplay(&sContext);
     Graphics_clearDisplay(&invisibleContext);
 
@@ -261,6 +264,7 @@ void joystick_mode_setup(){
     }
 
     while(P1IN & GPIO_PIN4){
+       
         resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
         resultsBuffer[1] = ADC14_getResult(ADC_MEM1);
 
@@ -333,8 +337,8 @@ void joystick_mode_setup(){
     }
 }
 
-void ADC14_IRQHandler(void)
-{
+void ADC14_IRQHandler(void){
+   
     uint64_t status;
 
     status = ADC14_getEnabledInterruptStatus();
