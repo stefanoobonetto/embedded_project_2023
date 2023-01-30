@@ -126,6 +126,21 @@ void ADC14_IRQHandler(void)
 
 
 ## Build, Burn and Run the project
+### How to setup Code Composer Studio Project
+If you haven't done it already download the latest version of Code Composer Studio <a href="https://www.ti.com/tool/download/CCSTUDIO/12.1.0">at this link</a>.
+First of all clone this repo and then import the folder as a project in CCS. Then you have to download driverlib at <a href="https://drive.google.com/file/d/1krZfBNAFiE6yAChQfHZVE-b0wfuDitgV/view">this link</a> and then add it to your current project, following these lines:
+<ol>
+	<li>Extract simplelink_msp432p4_sdk_3_40_01_02.zip file. </li>
+	<li>Open CSS and left click on Project Folder to select Properties</li>
+	<li>Select CSS Build</li>
+	<li>Click ARM Compiler and then Include Options</li>
+	<li>Add "simplelink_msp432p4_sdk_3_40_01_02/source" directory to "Add dir to #include search path" window.  </li>
+	<li>Click ARM Linker and File Search Path</li>
+	<li>Add "simplelink_msp432p4_sdk_3_40_01_02/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib" to "Include library file..." window</li>
+	<li>Add "simplelink_msp432p4_sdk_3_40_01_02\source\ti\grlib\lib\ccs\m4f\grlib.a" to "Include library file..." window</li>
+
+</ol>
+
 ### Pin Mapping
 #### MSP432 Receiver
 <table style="text-align: center">
