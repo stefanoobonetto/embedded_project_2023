@@ -21,6 +21,11 @@ volatile int sel = 0; //general selector --> for back button
 
 volatile int sel1 = 0; //menu selector --> for joystick button and selector
 
+//sel1 VALUES:
+//0 --> joystick mode no kd
+//1 --> joystick mode kd
+//2 --> auto_park
+
 void adcInit(){
 
    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P4, GPIO_PIN1); //joystick button
