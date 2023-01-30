@@ -7,7 +7,7 @@
 
 
 # Auto-Parking Car
-This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the uniTN course of Embedded Software for the Internet of Things.<br><br>
+This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the UniTN course of Embedded Software for the Internet of Things.<br><br>
 It's basically a Wi-Fi remoted controlled car, we can drive it in three modes:
 <ol>
   <li>Normal joystick mode</li>
@@ -61,21 +61,27 @@ We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-sm
 |     └──system_msp432p401r.c
 |
 ├──MSP432_RECEIVER           #car's code
-|     ├──
-|     ├──
-|     ├──
-|     ├──
-|     └──
+|     ├──Debug
+|     ├──LcdDriver
+|     ├──targetConfigs
+|     ├──ConnectionUart.c
+|     ├──ConnectionUart.h
+|     ├──Motor.c
+|     ├──Motor.h
+|     ├──UltrasonicSensor.c
+|     ├──UltrasonicSensor.h
+|     ├──main.c
+|     ├──msp432p401r.cmd
+|     ├──startup_msp432p401r_ccs.c
+|     └──system_msp432p401r.c
 |
 ├──ESP32_SENDER              #esp32 connected to the controller
-|     ├──
-|     ├──
-|     └──
+|     └──ESP32_SENDER.ino
 |
-└──ESP32_SENDER              #esp32 connected to the car
-      ├──
-      ├──
-      └──
+└──ESP32_RECEIVER              #esp32 connected to the car
+      ├──ESP32_RECEIVER.ino
+      ├──ESP32_Servo.cpp
+      └──ESP32_Servo.h
 ```
 The code is obviously divided in two parts: the code loaded into the controller and the code in the MSP432 of the car. Moreover we have setup the ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
 We've used the UART serial communication to let MSP432 and ESP32 talk to each other: here is the example of the joystick mode, we store the results of the joystick movement (x-y frame) in the array resultsBuffer and we convert them into suitable data for the car MSP432: we'll send an 8 bit message with our UART connection (we could send more but 8 it's enough) so we dedicate the first 100 numbers to the x value, numbers from 100 to 200 will be the y value, the rest of the possible combinations will be used to call the functions (autopark, ABS). 
