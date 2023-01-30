@@ -131,7 +131,7 @@ void graphics_first_menu(int sel1){
     char string[3][40];
     strcpy(string[0], "joystick mode");
     Graphics_drawString(&sContext, (int8_t *)string[0], 22, 35, 22, OPAQUE_TEXT);
-    strcpy(string[1], "ABS on");
+    strcpy(string[1], "anticollision");
     Graphics_drawString(&sContext, (int8_t *)string[1], 22, 35, 61, OPAQUE_TEXT);
     strcpy(string[2], "autopark mode");
     Graphics_drawString(&sContext, (int8_t *)string[2], 22, 35, 100, OPAQUE_TEXT);
