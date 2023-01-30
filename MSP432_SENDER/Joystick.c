@@ -316,66 +316,91 @@ void keep_distance(bool on){
 }
 
 void joystick_mode_setup(){
+    Graphics_clearDisplay(&sContext);
+    Graphics_clearDisplay(&invisibleContext);
 
-    clear_display_visible();
-    clear_display_invisible();
+    Graphics_Rectangle rect1 = {1, 1, 126, 31};
+    GrRectDraw(&sContext, &rect1);
 
-    draw_rectangle(1, 1, 126, 31);
+    char string[25];
+    sprintf(string, "JOYSTICK MODE");
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 10, OPAQUE_TEXT);
 
-
+    switch(sel1){
+        case 0:
+            sprintf(string, "anticollision off");
+            Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 22, OPAQUE_TEXT);
+            break;
+        case 1:
+            sprintf(string, "anticollision on");
+            Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 22, OPAQUE_TEXT);
+            break;
+        default:
+            break;
+    }
 
     while(P1IN & GPIO_PIN4){
+        resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
+        resultsBuffer[1] = ADC14_getResult(ADC_MEM1);
 
+        int x = (int)(resultsBuffer[0]);
+        int y = (int)(resultsBuffer[1]);
 
-        int x = (int)(ADC14_getResult(ADC_MEM0));
-        int y = (int)(ADC14_getResult(ADC_MEM1));
-
-        //Set range x and y (-100,100)
-        x = (x - 8150)/82 ;
+        x = (x - 8150)/82 ; // tra -100 e 100
         y = (y - 8150)/82 ;
 
-
-        //Set range x and y (-50,50)
         x = x/2 ;
         y = y/2 ;
 
-        //Set range x(0,99) y(100,199)
-        x = x +  49;
-        y = y + 149;
+        x = x +  49; // tra 0 e 100 trasmetto x
+        y = y + 149; // tra 100 e 200 trasmetto y
 
         uint8_t X = (uint8_t)x;
         uint8_t Y = (uint8_t)y;
 
-        printf("%d - %d\n",X,Y);
-
-
-        uint8_t v = y-100;
-        if(v < 4){
+        uint8_t v = Y-100;
+        if(v >= 50){
+            v -= 50;
+        }else if(v < 50 && v > 43){
             v = 0;
+        }else{
+            v = 43 - v;
         }
 
-        char svolta[40];
+        char dir[40];
+
+        printf("y = %d\n", Y);
+        if(Y < 140){
+            strcpy(dir, "  retro  ");
+        }else if(Y > 148){
+            strcpy(dir, "forward");
+        }else{
+            strcpy(dir, "stalled");
+        }
+        Graphics_drawStringCentered(&sContext, (int8_t *)dir, 40, 64, 90, OPAQUE_TEXT);
+
+        char svolta[40] = "";
 
         if(X < 43){
-            strcpy(svolta, "  left  ");
+            strcat(svolta, "  left  ");
         }else if(X > 57){
-            strcpy(svolta, "  right  ");
+            strcat(svolta, "  right  ");
         }else{
-            strcpy(svolta, "forward");
+            strcat(svolta, "no turn");
         }
 
-        draw(svolta, 8, 64, 90);
+        Graphics_drawStringCentered(&sContext, (int8_t *)svolta, 40, 64, 100, OPAQUE_TEXT);
 
         char string[10];
         sprintf(string, "speed:");
-        draw(string, 8, 64, 50);
+        Graphics_drawStringCentered(&sContext, (int8_t *)string, 8, 64, 50, OPAQUE_TEXT);
 
         sprintf(string, " %d ", v);
-        draw(string, 8, 64, 70);
+        Graphics_drawStringCentered(&sContext, (int8_t *)string, 8, 64, 70, OPAQUE_TEXT);
 
         if(semaforo && cont){
             semaforo = 0;
-            UART_transmitData(EUSCI_A2_BASE, X);
+            UART_transmitData(EUSCI_A2_BASE, x);
             cont = 0;
             semaforo = 1;
         }else if (semaforo && !cont){
