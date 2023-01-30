@@ -1,10 +1,3 @@
-/*
- * Joystick.c
- *
- *  Created on: 26 gen 2023
- *      Author: simoneroman
- */
-
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
 #include "LcdDriver/Crystalfontz128x128_ST7735.h"
 #include <stdint.h>
@@ -13,22 +6,25 @@
 #include <Display.h>
 #include <ConnectionUart.h>
 
-volatile int semaforo = 1;   //semaforo generale per mandare la roba in UART
+volatile int semaforo = 1;   //general semaphore for UART communication (just one message is sent at a time) 
 
-
-
-volatile int cont = 0;    //semaforo per mandare prima X e poi Y
+volatile int cont = 0;    //semaphore to send in order first X and then Y 
 
 volatile int sel = 0; //general selector --> for back button
 
 //sel VALUES:
 //0 --> WELCOME screen
 //1 --> prima schermata di selezione
-//2 --> joystick mode no kd
-//3 --> joystick mode kd
+//2 --> joystick mode no anticollision
+//3 --> joystick mode w/ anticollision
 //4 --> auto_park
 
 volatile int sel1 = 0; //menu selector --> for joystick button and selector
+
+//sel1 VALUES:
+//0 --> joystick mode no kd
+//1 --> joystick mode kd
+//2 --> auto_park
 
 void adcInit(){
 
@@ -38,25 +34,16 @@ void adcInit(){
    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P1, GPIO_PIN4); //S2 msp432
    GPIO_enableInterrupt(GPIO_PORT_P1, GPIO_PIN4);
 
-   GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P5, GPIO_PIN1); //S2 boosterpack
+   GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P5, GPIO_PIN1); //S1 boosterpack
    GPIO_enableInterrupt(GPIO_PORT_P5, GPIO_PIN1);
 
    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P3, GPIO_PIN5); //S2 boosterpack
    GPIO_enableInterrupt(GPIO_PORT_P3, GPIO_PIN5);
 
-   //Configure P1.0
-   GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-   GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
-
-   //Configure P2.1
-   GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN1);
-   GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN1);
-
    Interrupt_enableInterrupt(INT_PORT1);
    Interrupt_enableInterrupt(INT_PORT3);
    Interrupt_enableInterrupt(INT_PORT4);
    Interrupt_enableInterrupt(INT_PORT5);
-
 
    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P6, GPIO_PIN0, GPIO_TERTIARY_MODULE_FUNCTION);
    GPIO_setAsPeripheralModuleFunctionInputPin(GPIO_PORT_P4, GPIO_PIN4, GPIO_TERTIARY_MODULE_FUNCTION);
@@ -80,8 +67,6 @@ void adcInit(){
    ADC14_toggleConversionTrigger();
 }
 
-
-
 void PORT1_IRQHandler(void) //BACK button
 {
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P1);
@@ -89,13 +74,6 @@ void PORT1_IRQHandler(void) //BACK button
     GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
 
     if(status & GPIO_PIN4){
-        //sel values
-        //0 --> WELCOME screen,
-        //1 --> prima schermata di selezione,
-        //2 --> joystick mode no kd,
-        //3 --> joystick mode kd,
-        //4 --> auto_park
-
         switch(sel){
             case 0:
                 break;
@@ -119,26 +97,11 @@ void PORT1_IRQHandler(void) //BACK button
     }
 }
 
-
 void PORT3_IRQHandler(void){ //DOWN button
 
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P3);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P3, status);
-    printf("secondo bottone\n");
-
-    /*sel values
-    0 --> WELCOME screen,
-    1 --> prima schermata di selezione,
-    2 --> joystick mode no kd,
-    3 --> joystick mode kd,
-    4 --> auto_park
-    */
-
-    //sel1 values
-    //0 --> joystick mode no kd,
-    //1 --> joystick mode kd,
-    //2 --> auto_park
 
     if(status & GPIO_PIN5){
         switch(sel){
@@ -158,11 +121,7 @@ void PORT3_IRQHandler(void){ //DOWN button
                         break;
                 }
                 break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            default:
+           default:
                 break;
             }
     }
@@ -172,20 +131,6 @@ void PORT4_IRQHandler(void){ //JOYSTICK SELECT
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P4);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P4, status);
-    printf("SONO qui\n");
-
-    /*sel values
-    0 --> WELCOME screen,
-    1 --> prima schermata di selezione,
-    2 --> joystick mode no kd,
-    3 --> joystick mode kd,
-    4 --> auto_park
-    */
-
-    //sel1 values
-    //0 --> joystick mode no kd,
-    //1 --> joystick mode kd,
-    //2 --> auto_park
 
     if(status & GPIO_PIN1){
         switch(sel){
@@ -211,13 +156,7 @@ void PORT4_IRQHandler(void){ //JOYSTICK SELECT
                         auto_park_mode();
                         break;
                 }break;
-//             case 2:
-//                 break;
-//             case 3:
-//                 break;
-//             case 4:
-//                 break;
-             default:
+           default:
                  break;
         }
     }
@@ -228,23 +167,8 @@ void PORT5_IRQHandler(void){  //UP button
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P5);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P5, status);
-    printf("Primo bottone\n");
-
+   
     if(status & GPIO_PIN1){
-
-
-        /*sel values
-        0 --> WELCOME screen,
-        1 --> prima schermata di selezione,
-        2 --> joystick mode no kd,
-        3 --> joystick mode kd,
-        4 --> auto_park
-        */
-
-        //sel1 values
-        //0 --> joystick mode no kd,
-        //1 --> joystick mode kd,
-        //2 --> auto_park
 
         switch(sel){
             case 0:
@@ -264,9 +188,7 @@ void PORT5_IRQHandler(void){  //UP button
                         draw_circle(1);
                         break;
                 }break;
-//            case 3:
-//                break;
-            default:
+           default:
                 break;
         }
     }
@@ -287,7 +209,7 @@ void auto_park_mode(){
     if(semaforo){
         semaforo = 0;
         while(P1IN & GPIO_PIN4){
-            uint8_t auto_park = 201;                       //codice auto_park_mode = 201
+            uint8_t auto_park = 201;                           //auto_park_mode code = 201
             UART_transmitData(EUSCI_A2_BASE, auto_park);
         }
         semaforo = 1;
@@ -297,16 +219,15 @@ void auto_park_mode(){
 void keep_distance(bool on){
     int contatore=0;
 
-
     if(on){
-        uint8_t auto_park = 202;
-        for(contatore=0;contatore<3;contatore++){//codice keep_distance_mode = 202
+        uint8_t kd = 202;                                      //keep_distance_mode code = 202
+        for(contatore=0;contatore<3;contatore++){              
             UART_transmitData(EUSCI_A2_BASE, auto_park);
         }
     }
     else{
-        uint8_t auto_park = 203;
-        for(contatore=0;contatore<3;contatore++){//codice keep_distance_mode = 202
+        uint8_t kd = 203;
+        for(contatore=0;contatore<3;contatore++){             
             UART_transmitData(EUSCI_A2_BASE, auto_park);
         }
     }
@@ -352,8 +273,8 @@ void joystick_mode_setup(){
         x = x/2 ;
         y = y/2 ;
 
-        x = x +  49; // tra 0 e 100 trasmetto x
-        y = y + 149; // tra 100 e 200 trasmetto y
+        x = x +  49;         // x values = [0, 99]
+        y = y + 149;         // y values = [100, 199]
 
         uint8_t X = (uint8_t)x;
         uint8_t Y = (uint8_t)y;
@@ -400,7 +321,7 @@ void joystick_mode_setup(){
 
         if(semaforo && cont){
             semaforo = 0;
-            UART_transmitData(EUSCI_A2_BASE, x);
+            UART_transmitData(EUSCI_A2_BASE, X);
             cont = 0;
             semaforo = 1;
         }else if (semaforo && !cont){
@@ -414,13 +335,6 @@ void joystick_mode_setup(){
 
 void ADC14_IRQHandler(void)
 {
-    //sel values
-    //0 --> WELCOME screen,
-    //1 --> prima schermata di selezione,
-    //2 --> joystick mode no kd,
-    //3 --> joystick mode kd,
-    //4 --> auto_park
-
     uint64_t status;
 
     status = ADC14_getEnabledInterruptStatus();
