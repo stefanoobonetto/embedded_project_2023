@@ -58,15 +58,15 @@ const Timer_A_UpModeConfig upConfig = {
 
 void pwmEnable()
 {
-    /* Configures P2.4 to PM_TA0.1 for using Timer PWM to control LED */
+    /* Configures P2.4 to PM_TA0.1 for using Timer PWM to control motors */
     GPIO_setAsPeripheralModuleFunctionOutputPin(GPIO_PORT_P2, GPIO_PIN4,
     GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Configures P2.6 to PM_TA0.3 for using Timer PWM to control LED */
+    /* Configures P2.6 to PM_TA0.3 for using Timer PWM to control motors */
     GPIO_setAsPeripheralModuleFunctionOutputPin(EN_1_PORT, EN_1_PIN,
     GPIO_PRIMARY_MODULE_FUNCTION);
 
-    /* Configures P5.6 to PM_TA0.4 for using Timer PWM to control LED */
+    /* Configures P5.6 to PM_TA0.4 for using Timer PWM to control motors */
     GPIO_setAsPeripheralModuleFunctionOutputPin(EN_2_PORT, EN_2_PIN,
     GPIO_PRIMARY_MODULE_FUNCTION);
 
