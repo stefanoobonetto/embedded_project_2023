@@ -14,7 +14,7 @@ This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roma
 It's basically a Wi-Fi remoted controlled car, we can drive it in three modes:
 <ol>
   <li>Normal joystick mode</li>
-  <li>Joystick mode with ABS (autobraking system)</li>
+  <li>Joystick mode with anticollision system</li>
   <li>Autoparking mode</li>
 </ol>
 When the autoparking mode is running, the car is able to find a space wide enough in the right side of the roadway and then execute a parallel park.
@@ -25,7 +25,7 @@ For our project we've used:
   <li>2 x <a href="https://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/SIMPLELINK_MSP432_SDK/1.20.00.45/exports/docs/simplelink_mcu_sdk/project0/project0/docs/MSP-EXP432P401R.html">MSP432P401R Launchpads</a></li>
   <li>2 x <a href="https://www.espressif.com/en/products/socs/esp32">ESP32</a> modules</li>
   <li><a href="https://www.ti.com/tool/BOOSTXL-EDUMKII">BOOSTXL-EDUMKII</a></li>
-  <li><a href="https://components101.com/modules/l293n-motor-driver-module">L298N Motor Driver Module</a></li>
+  <li><a href="https://components101.com/modules/l293n-motor-driver-module">L298N</a> Motor Driver Module</li>
   <li><a href="https://www.electroschematics.com/hc-sr04-datasheet/">HC-SR04</a> ultrasonic module</li>
   <li><a href="https://education.makeblock.com/help/cyberpi-series-9g-micro-servo-metal-gear/">9g Micro Servo</a></li>
   <li>9V battery</li>
@@ -42,7 +42,7 @@ For our project we've used:
   </tr>
 </table>
 
-We've build the Joystick Controller with an <a href="https://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/SIMPLELINK_MSP432_SDK/1.20.00.45/exports/docs/simplelink_mcu_sdk/project0/project0/docs/MSP-EXP432P401R.html">MSP432P401R Launchpad</a> connected to the <a href="https://www.ti.com/tool/BOOSTXL-EDUMKII">BOOSTXL-EDUMKII</a> and to the <a href="https://www.espressif.com/en/products/socs/esp32">ESP32 Wi-Fi and Bluetooth module</a>.<br>
+We've build the Joystick Controller with an <a href="https://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/SIMPLELINK_MSP432_SDK/1.20.00.45/exports/docs/simplelink_mcu_sdk/project0/project0/docs/MSP-EXP432P401R.html">MSP432P401R</a> Launchpad connected to the <a href="https://www.ti.com/tool/BOOSTXL-EDUMKII">BOOSTXL-EDUMKII</a> and to the <a href="https://www.espressif.com/en/products/socs/esp32">ESP32</a> Wi-Fi and Bluetooth module.<br>
 We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-smart-robot-car-kit-v-4-0">ELEGOO UNO R3 Project Smart Robot Car V 4.0</a> with his built-in motors and wheels, but it's not mandatory, you can use whatever chassis you prefer, we have use four <a href="https://www.adafruit.com/product/3777">DC motor</a> (from 3V to 6V).
 
 ## Project Layout
@@ -86,10 +86,10 @@ We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-sm
       ├──ESP32_Servo.cpp
       └──ESP32_Servo.h
 ```
-The code is obviously divided in four parts: the code loaded into the controller and the code in the MSP432 of the car are the mainparts, moreover we have setup the ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
+As you can see, the code is divided in four parts: the code loaded into the controller (MSP432_SENDER) and the code in the MSP432 of the car (MSP432_RECEIVER) are the main parts, moreover we have setup the two ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
 We've used the UART serial communication to let MSP432 and ESP32 talk to each other: 
-<div align=center><img src="https://user-images.githubusercontent.com/106806808/215796807-f615ca3a-822e-4557-a7a2-4fbd6a86f0cb.png" style="width: 600 px"></div>
-
+<div align=center><img src="https://user-images.githubusercontent.com/106806808/215796807-f615ca3a-822e-4557-a7a2-4fbd6a86f0cb.png" style="width: 600 px"></div><br>
+We have setup a unilateral UART connection because it was enough for our project, but it' easily implementable a bilateral communication between the two devices.
 
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
