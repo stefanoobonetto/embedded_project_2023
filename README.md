@@ -208,7 +208,7 @@ These are some other resources:
 </table>
 
 ## Contact us
-Stefano Bonetto: stefano.bonetto@studenti.unitn.it
-Simone Roman: simone.roman@studenti.unitn.it
-Mattia Rigon: mattia.rigon@studenti.unitn.it
+Stefano Bonetto: stefano.bonetto@studenti.unitn.it <br>
+Simone Roman: simone.roman@studenti.unitn.it <br>
+Mattia Rigon: mattia.rigon@studenti.unitn.it <br>
 
