@@ -86,46 +86,9 @@ We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-sm
       ├──ESP32_Servo.cpp
       └──ESP32_Servo.h
 ```
-The code is obviously divided in two parts: the code loaded into the controller and the code in the MSP432 of the car. Moreover we have setup the ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
-We've used the UART serial communication to let MSP432 and ESP32 talk to each other: here is the example of the joystick mode, we store the results of the joystick movement (x-y frame) in the array resultsBuffer and we convert them into suitable data for the car MSP432: we'll send an 8 bit message with our UART connection (we could send more but 8 it's enough) so we dedicate the first 100 numbers to the x value, numbers from 100 to 200 will be the y value, the rest of the possible combinations will be used to call the functions (autopark, ABS). 
-
-```c
-void ADC14_IRQHandler(void)
-{
-    uint64_t status;
-
-    status = ADC14_getEnabledInterruptStatus();
-    ADC14_clearInterruptFlag(status);
-    
-    if(status & ADC_INT1)
-    {
-        resultsBuffer[0] = ADC14_getResult(ADC_MEM0);
-        resultsBuffer[1] = ADC14_getResult(ADC_MEM1);
-
-        int x = (int)(resultsBuffer[0]);
-        int y = (int)(resultsBuffer[1]);
-
-        x = (x - 8150)/82; 
-        y = (y - 8150)/82;
-        x = x/2 ; 
-        y = y/2 ; 
-
-        x = x +  49; // tra 0 e 100 trasmetto x
-        y = y + 149; // tre 100 e 200 trasmetto y
-
-        uint8_t X = (uint8_t)x;
-        uint8_t Y = (uint8_t)y;
-        
-        if(cont ){
-            UART_transmitData(EUSCI_A2_BASE, x);
-            cont = 0 ;
-        }else{
-            UART_transmitData(EUSCI_A2_BASE, Y);
-            cont = 1 ;
-        }
-    }
-}
-```
+The code is obviously divided in four parts: the code loaded into the controller and the code in the MSP432 of the car are the mainparts, moreover we have setup the ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
+We've used the UART serial communication to let MSP432 and ESP32 talk to each other: 
+<div align=center><img src="https://user-images.githubusercontent.com/106806808/215796807-f615ca3a-822e-4557-a7a2-4fbd6a86f0cb.png" style="width: 600 px"></div>
 
 
 ## Build, Burn and Run the project
