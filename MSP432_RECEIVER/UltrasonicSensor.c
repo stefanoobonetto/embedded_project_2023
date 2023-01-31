@@ -38,6 +38,7 @@ uint32_t leggiDati(){
 
 
     // Start timer
+    //TASSEL_1-> ACLK clock.    MC_2->Continous mode
     TA1CTL = TASSEL_1 + MC_2 + TACLR;
 
     // Wait for echo to end
@@ -47,8 +48,7 @@ uint32_t leggiDati(){
     TA1CTL = MC_0;
 
     // Calculate distance
-    //uint32_t distance = (TA1R * 0.034) / 2;
-    uint32_t distance = ((TA1R ));
+    uint32_t distance = ((TA1R));
     distance= (distance+7)/2;
     printf("distance %u\n",distance);
 
