@@ -96,11 +96,24 @@ We have setup a unilateral UART connection because it was enough for our project
 ### Display
 The graphic part is composed basically by the function that allow us to print elements in the LCD screen:
 <ul>
-	<li>The `graphicsInit()` function setup the LCD screen and projects the WELCOME screen.</li>
-	<li>The `graphics_first_menu()` function projects the menu screen.</li>
-	<li>The `joystick_mode_graphics(int sel1)` function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 or in retro mode and the one that indicates turn) are projected by a function `draw` in `joystick_mode_setup()` in Joystick.c.</li>
-	<li>The `auto_park_mode_graphics()` function projects the autopark mode screen.</li>
+	<li>The graphicsInit() function setup the LCD screen and projects the WELCOME screen.</li>
+	<li>The graphics_first_menu() function projects the menu screen.</li>
+	<li>The joystick_mode_graphics(int sel1) function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 	or in retro mode and the one that indicates turn) are projected by a function draw() in joystick_mode_setup() in Joystick.c.</li>
+	<li>The auto_park_mode_graphics() function projects the autopark mode screen.</li>
 </ul>
+
+### Joystick
+The joystick code include all the button's interrupts_handler:
+<ul>
+	<li>Boosterpack's S1 and S2 buttons interrupt handlers</li>
+	<li>MSP432's S1 button interrupt handler</li>
+</ul>	
+They works all in the same way: when they're invoked they all check the value of the sel variable to undeerstand in which screen the user is, then every handler do a different thing based on sel and on the button pressed.
+Then we have the mode function:
+<ul>
+	<li>joystick_mode_setup() calls his graphic's function and then check the ADC14 x and y values, converts them and send them to the car</li>
+	<li>keep_distance(bool on) if on send to the car 3 times the code 202 (enable anticollision) else it send 203 (disable anticollision)</li>
+	<li>auto_park_mode()</li>
 
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
