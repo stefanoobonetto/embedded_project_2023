@@ -91,7 +91,7 @@ As you can see, the code is divided in four parts: the code loaded into the cont
 ### UART communication
 We've used the UART serial communication to let MSP432 and ESP32 talk to each other: 
 <div align=center><img src="https://user-images.githubusercontent.com/106806808/215796807-f615ca3a-822e-4557-a7a2-4fbd6a86f0cb.png" style="width: 600 px"></div><br>
-We have setup a unilateral UART connection because it was enough for our project, but it' easily implementable a bilateral communication between the two devices.
+We have setup a unilateral UART connection because it was enough for our project, but it' easily implementable a bilateral communication between the two devices.<br><br>
 
 ### Display
 The graphic part is composed basically by the functions that allow us to print elements on the LCD screen:
@@ -100,7 +100,7 @@ The graphic part is composed basically by the functions that allow us to print e
 	<li>The graphics_first_menu() function projects the menu screen.</li>
 	<li>The joystick_mode_graphics(int sel1) function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 	or in retro mode and the one that indicates turn) are projected by a function draw() in joystick_mode_setup() in Joystick.c.</li>
 	<li>The auto_park_mode_graphics() function projects the autopark mode screen.</li>
-</ul>
+</ul><br><br>
 
 ### Joystick
 The joystick code include all the button's interrupts_handler:
@@ -114,7 +114,7 @@ Then we have the mode function:
 	<li>joystick_mode_setup() calls his graphic's function and then check the ADC14 x and y values, converts them and send them to the car.</li>
 	<li>keep_distance(bool on) if on send to the car 3 times the code 202 (enable anticollision) else it send 203 (disable anticollision).</li>
 	<li>auto_park_mode() calls his graphic's function and then send the code 201 to the car til the BACK button is released.</li>
-</ul>
+</ul><br><br>
 
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
