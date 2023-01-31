@@ -53,7 +53,7 @@ void configureUart(){
 }
 
 
-
+// handler for future improvment(feedback message)
 void EUSCIA2_IRQHandler(void)
 {
 
