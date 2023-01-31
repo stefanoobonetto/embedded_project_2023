@@ -16,7 +16,7 @@ Graphics_Context invisibleContext;
 
 
 
-void clear_display_visible(){
+/*void clear_display_visible(){
     Graphics_clearDisplay(&sContext);
 
 }
@@ -26,6 +26,13 @@ void clear_display_invisible(){
 
 }
 
+void draw_rectangle(int v1,int v2,int v3,int v4){
+    Graphics_Rectangle rect1 = {v1, v2, v3, v4};
+    GrRectDraw(&sContext, &rect1);
+
+}
+*/
+
 void draw(char string[],int x,int y,int z){
     Graphics_drawStringCentered(&sContext,
                                         (int8_t *)string,
@@ -34,13 +41,6 @@ void draw(char string[],int x,int y,int z){
                                         z,
                                         OPAQUE_TEXT);
 }
-
-void draw_rectangle(int v1,int v2,int v3,int v4){
-    Graphics_Rectangle rect1 = {v1, v2, v3, v4};
-    GrRectDraw(&sContext, &rect1);
-
-}
-
 
 void graphicsInit()
 {
@@ -156,4 +156,41 @@ void graphics_first_menu(int sel1){
 
 }
 
+void joystick_mode_graphics(int sel1){
+    Graphics_clearDisplay(&sContext);
+    Graphics_clearDisplay(&invisibleContext);
 
+    Graphics_Rectangle rect1 = {1, 1, 126, 31};
+    GrRectDraw(&sContext, &rect1);
+
+    char string[25];
+
+    sprintf(string, "JOYSTICK MODE");
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 10, OPAQUE_TEXT);
+
+    switch(sel1){
+        case 0:
+            sprintf(string, "anticollision off");
+            Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 22, OPAQUE_TEXT);
+            break;
+        case 1:
+            sprintf(string, "anticollision on");
+            Graphics_drawStringCentered(&sContext, (int8_t *)string, 25, 64, 22, OPAQUE_TEXT);
+            break;
+        default:
+            break;
+    }
+}
+
+void auto_park_mode_graphics(){
+    Graphics_clearDisplay(&sContext);
+    Graphics_clearDisplay(&invisibleContext);
+
+    char string[40];
+    strcpy(string, "AUTO-PARK MODE");
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, 22, 64, 50, OPAQUE_TEXT);
+    strcpy(string, "press BACK button");
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, 22, 64, 65, OPAQUE_TEXT);
+    strcpy(string, "to exit");
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, 22, 64, 75, OPAQUE_TEXT);
+}
