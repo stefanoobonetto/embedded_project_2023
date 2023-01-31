@@ -87,9 +87,20 @@ We've used as our chassis the <a href="https://www.elegoo.com/products/elegoo-sm
       └──ESP32_Servo.h
 ```
 As you can see, the code is divided in four parts: the code loaded into the controller (MSP432_SENDER) and the code in the MSP432 of the car (MSP432_RECEIVER) are the main parts, moreover we have setup the two ESP32 with some arduino code to communicate between them using their Wi-Fi modules (this is the only part done with arduinoIDE, the rest of the project is coded in C language).<br><br>
+
+### UART communication
 We've used the UART serial communication to let MSP432 and ESP32 talk to each other: 
 <div align=center><img src="https://user-images.githubusercontent.com/106806808/215796807-f615ca3a-822e-4557-a7a2-4fbd6a86f0cb.png" style="width: 600 px"></div><br>
 We have setup a unilateral UART connection because it was enough for our project, but it' easily implementable a bilateral communication between the two devices.
+
+### Display
+The graphic part is composed basically by the function that allow us to print elements in the LCD screen:
+<ul>
+	<li>The `graphicsInit()` function setup the LCD screen and projects the WELCOME screen.</li>
+	<li>The `graphics_first_menu()` function projects the menu screen.</li>
+	<li>The `joystick_mode_graphics(int sel1)` function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 or in retro mode and the one that indicates turn) are projected by a function `draw` in `joystick_mode_setup()` in Joystick.c.</li>
+	<li>The `auto_park_mode_graphics()` function projects the autopark mode screen.</li>
+</ul>
 
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
