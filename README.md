@@ -6,7 +6,7 @@
 <!--![msp432](https://user-images.githubusercontent.com/106806808/215067958-aa9dbdce-7557-4647-be4b-ba4c161b3c81.png)-->
 
 
-# Auto-Parking Car
+# Smart Car
 This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the UniTN course of Embedded Software for the Internet of Things.<br><br>
 It's basically a Wi-Fi remoted controlled car, we can drive it in three modes:
 <ol>
