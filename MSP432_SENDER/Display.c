@@ -33,13 +33,8 @@ void draw_rectangle(int v1,int v2,int v3,int v4){
 }
 */
 
-void draw(char string[],int x,int y,int z){
-    Graphics_drawStringCentered(&sContext,
-                                        (int8_t *)string,
-                                        x,
-                                        y,
-                                        z,
-                                        OPAQUE_TEXT);
+void draw(char string[],int lenght,int x,int y){
+    Graphics_drawStringCentered(&sContext, (int8_t *)string, length, x, y, OPAQUE_TEXT);
 }
 
 void graphicsInit()
