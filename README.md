@@ -7,6 +7,9 @@
 
 
 # Smart Car
+<div align=center>
+<img src="https://user-images.githubusercontent.com/106806808/215711438-e02d5343-26c1-4949-85cc-87c8c4540e76.jpg" style="text-align: center; width: 500px ">
+</div>
 This project has been developed by Mattia Rigon, Stefano Bonetto and Simone Roman as the exam for the UniTN course of Embedded Software for the Internet of Things.<br><br>
 It's basically a Wi-Fi remoted controlled car, we can drive it in three modes:
 <ol>
