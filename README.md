@@ -100,7 +100,7 @@ The graphic part is composed basically by the functions that allow us to print e
 	<li>The graphics_first_menu() function projects the menu screen.</li>
 	<li>The joystick_mode_graphics(int sel1) function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 	or in retro mode and the one that indicates turn) are projected by a function draw() in joystick_mode_setup() in Joystick.c.</li>
 	<li>The auto_park_mode_graphics() function projects the autopark mode screen.</li>
-</ul><br><br>
+</ul><br>
 
 ### Joystick
 The joystick code include all the button's interrupts_handler:
@@ -114,7 +114,7 @@ Then we have the mode function:
 	<li>joystick_mode_setup() calls his graphic's function and then check the ADC14 x and y values, converts them and send them to the car.</li>
 	<li>keep_distance(bool on) if on send to the car 3 times the code 202 (enable anticollision) else it send 203 (disable anticollision).</li>
 	<li>auto_park_mode() calls his graphic's function and then send the code 201 to the car til the BACK button is released.</li>
-</ul><br><br>
+</ul><br>
 
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
@@ -132,7 +132,8 @@ First of all clone this repo and then import the folder as a project in CCS. The
 
 </ol>
 
-### Pin Mapping
+### Pin Mapping<br>
+
 #### MSP432 Receiver
 <table style="text-align: center">
   <tr>
@@ -186,11 +187,11 @@ First of all clone this repo and then import the folder as a project in CCS. The
     <td>Connected to L298N's IN4 pin</td>
   </tr>  
 </table>
-We've connected the board to a power-bank with his micro-USB connector.
+We've connected the board to a power-bank with his micro-USB connector.<br><br>
 
 #### L298N
 L298N is designed to have two motors connected, since we wanted to control four, we connected the left motors to OUT1 and OUT2 in pairs and similarly we connected the right motors to OUT3 and OUT4.
-At the beginning we were using a motor shield which wasn't able to serve four motors simultaneously because it accepted only 5V power; so we have bought a new motor shield (L298N) and ae provide 9V power supply.
+At the beginning we were using a motor shield which wasn't able to serve four motors simultaneously because it accepted only 5V power; so we have bought a new motor shield (L298N) and ae provide 9V power supply.<br><br>
 
 #### MSP Sender
 <table style="text-align: center">
@@ -205,13 +206,14 @@ At the beginning we were using a motor shield which wasn't able to serve four mo
     <td>it's connected to ESP's pin G17. From there, the board send messages to the car</td>
   </tr>
 </table>
+<br><br>
 
 ## Other resources
-These are some other resources:
 <ul>
   <li><a href="https://youtu.be/69KgFIKE7XY">Youtube Video</a></li>
   <li><a href="https://docs.google.com/presentation/d/1h2l9AZ-rZWvKXyS_umFpl_V0j3etKmsssWN0EkKLERQ/edit#slide=id.p">PowerPoint Presentation</a></li>
 </ul>
+<br>
 
 ## Job Division
 <table>
@@ -230,7 +232,7 @@ These are some other resources:
   <tr>
     <td>Project debug and test</td><td>Stefano Bonetto, Simone Roman, Mattia Rigon</td>
   </tr>
-</table>
+</table><br>
 
 ## Contact us
 Stefano Bonetto: stefano.bonetto@studenti.unitn.it <br>
