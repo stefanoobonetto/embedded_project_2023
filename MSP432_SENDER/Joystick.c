@@ -274,16 +274,6 @@ void PORT5_IRQHandler(void){  //UP button
 
 void auto_park_mode(){
 
-    /*clear_display_visible();
-
-    char string[40];
-    strcpy(string, "AUTO-PARK MODE");
-    draw(string, 22, 64, 50);
-    strcpy(string, "press BACK button");
-    draw(string, 22, 64, 65);
-    strcpy(string, "to exit");
-    draw(string, 22, 64, 75);*/
-
    auto_park_mode_graphics();
    
     if(semaforo){
@@ -317,29 +307,7 @@ void keep_distance(bool on){
 
 }
 void joystick_mode_setup(){
-    /*clear_display_visible();
-    clear_display_invisible();
 
-    draw_rectangle(1, 1, 126, 31);
-
-    char string[25];
-
-    sprintf(string, "JOYSTICK MODE");
-    draw(string, 25, 64, 10);
-
-    switch(sel1){
-        case 0:
-            sprintf(string, "anticollision off");
-            draw(string, 25, 64, 22);
-            break;
-        case 1:
-            sprintf(string, "anticollision on");
-            draw(string, 25, 64, 22);
-            break;
-        default:
-            break;
-    }*/
-   
     joystick_mode_graphics(sel1);
 
     while(P1IN & GPIO_PIN4){
