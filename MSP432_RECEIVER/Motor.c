@@ -11,7 +11,6 @@
 #include <UltrasonicSensor.h>
 #include <ConnectionUart.h>
 
-
 /* ADC results buffer */
 #define EN_1_PORT  GPIO_PORT_P5
 #define EN_1_PIN   GPIO_PIN6
@@ -19,7 +18,6 @@
 #define IN1_1_PIN  GPIO_PIN7
 #define IN2_1_PORT GPIO_PORT_P5
 #define IN2_1_PIN  GPIO_PIN0
-
 
 #define EN_2_PORT  GPIO_PORT_P2
 #define EN_2_PIN   GPIO_PIN4

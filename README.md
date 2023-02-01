@@ -116,6 +116,26 @@ Then we have the mode function:
 	<li><i>auto_park_mode()</i> calls his graphic's function and then send the code 201 to the car til the BACK button is released.</li>
 </ul><br>
 
+### Motors
+
+When the system is in joystick mode we generate two message in a row continuously, one for x and one for y.
+For the second MSP432 we use an interrupt to take the number via UART and then decode to know the mode and movement of the motors. For motors we use the PWM technique to make them go at the speed we want.
+
+The number that the reciver MSP recive are managed in this way:
+
+0-99: used to give the direction to the x axis of the motors, this number is mapped in to the [-50,+50] range and this number is used for decide the power relation between the motors. 
+
+100-199: used to send the power to the y axis of the motors and also this is mapped in to the [-50,+50] range 
+Then we have to generate the message to enable or disable functions:
+
+200-255: are for extra functions, 201 for parking mode, 202 for anti-collision and 203 for normal joystick mode. 
+This message will then be sent via UART to the first ESP32
+For the two ESP32 we use the ESP-NOW protocol that allows us to send the 8-bit number via Wi-Fi to the other ESP32
+
+For the parking mode we use Ultrasonic Sensor, the car goes straight on until it finds a place big enough to allow parking and it applies the algorithm to park.
+
+
+
 ## Build, Burn and Run the project
 ### How to setup Code Composer Studio Project
 If you haven't done it already download the latest version of Code Composer Studio at <a href="https://www.ti.com/tool/download/CCSTUDIO/12.1.0">this link</a>.
