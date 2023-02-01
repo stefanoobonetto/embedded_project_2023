@@ -16,26 +16,7 @@
 Graphics_Context sContext;
 Graphics_Context invisibleContext;
 
-
-
-/*void clear_display_visible(){
-    Graphics_clearDisplay(&sContext);
-
-}
-
-void clear_display_invisible(){
-    Graphics_clearDisplay(&invisibleContext);
-
-}
-
-void draw_rectangle(int v1,int v2,int v3,int v4){
-    Graphics_Rectangle rect1 = {v1, v2, v3, v4};
-    GrRectDraw(&sContext, &rect1);
-
-}
-*/
-
-void draw(char string[],int length,int x,int y){
+void draw(char string[],int length,int x,int y){     //allows functions in Joystick.c to draw strings in the display
     Graphics_drawStringCentered(&sContext, (int8_t *)string, length, x, y, OPAQUE_TEXT);
 }
 
@@ -72,7 +53,7 @@ void graphicsInit()
 
 }
 
-void draw_circle(int choice){
+void draw_circle(int choice){  //draw the circle corresponding to choice (0, 1, 2) as the selector for the menu
     switch (choice)
     {
     case 0:
@@ -98,16 +79,12 @@ void draw_circle(int choice){
         break;
     }
 }
-    // pallino 1 quadrato
 
-
-void graphics_first_menu(int sel1){
+void graphics_first_menu(int sel1){    
 
     Graphics_clearDisplay(&sContext);
     GrClearDisplay(&invisibleContext);
-    //sel = 1;
 
-    //second screen elements
     Graphics_Rectangle rect1 = {5, 10, 123, 40};
     Graphics_Rectangle rect2 = {5, 49, 123, 79};
     Graphics_Rectangle rect3 = {5, 88, 123, 118};
