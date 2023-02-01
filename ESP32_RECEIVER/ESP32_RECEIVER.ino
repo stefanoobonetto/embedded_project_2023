@@ -26,7 +26,6 @@ typedef struct struct_message {
 // Create a structured object
 struct_message myData;
 
-
 // Callback function executed when data is received
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myData, incomingData, sizeof(myData));
@@ -55,16 +54,10 @@ void setup() {
   Serial_1.begin(115200, SERIAL_8N1, 17, 16);
   // Set up Serial Monitor
   Serial.begin(115200);
-  
   // Set ESP32 as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
-
   // Initilize ESP-NOW
-  if (esp_now_init() != ESP_OK) {
-    Serial.println("Error initializing ESP-NOW");
-    return;
-  }
-  
+  esp_now_init();
   // Register callback function
   esp_now_register_recv_cb(OnDataRecv);
   
