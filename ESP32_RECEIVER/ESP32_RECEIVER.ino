@@ -24,14 +24,12 @@ void servoDRITTO(){
 typedef struct struct_message {
   uint8_t a;
 } struct_message;
-
 // Create a structured object
 struct_message myData;
 
 // Callback function executed when data is received
 void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&myData, incomingData, sizeof(myData));
-
   //Set servo position
   if(myData.a==201){
     if(isDritto){
@@ -45,7 +43,6 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
       isDritto=1;
     }
   }
-
   char x=myData.a;
   Serial_1.print(x);
 }
@@ -61,7 +58,6 @@ void setup() {
   esp_now_init();
   // Register callback function
   esp_now_register_recv_cb(OnDataRecv);
-  
   //SETUP SERVO
   myservo.attach(servoPin, 500, 2500);  // attaches the servo on servoPin to the servo object
 }
