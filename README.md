@@ -96,10 +96,10 @@ We have setup a unilateral UART connection because it was enough for our project
 ### Display
 The graphic part is composed basically by the functions that allow us to print elements on the LCD screen:
 <ul>
-	<li>The graphicsInit() function setup the LCD screen and projects the WELCOME screen.</li>
-	<li>The graphics_first_menu() function projects the menu screen.</li>
-	<li>The joystick_mode_graphics(int sel1) function projects the joystick mode screen, some strings (the one which communicate us if we are going straight on    	 	or in retro mode and the one that indicates turn) are projected by a function draw() in joystick_mode_setup() in Joystick.c.</li>
-	<li>The auto_park_mode_graphics() function projects the autopark mode screen.</li>
+	<li>The <i>graphicsInit()</i> function setup the LCD screen and projects the WELCOME screen.</li>
+	<li>The <i>graphics_first_menu()</i> function projects the menu screen.</li>
+	<li>The <i>joystick_mode_graphics(int sel1)</i> function projects the joystick mode screen, some strings (the one which communicate us if we are going straight 	on or in retro mode and the one that indicates turn) are projected by a function <i>draw()</i> in <i>joystick_mode_setup()</i> in <i>Joystick.c</i>.</li>
+	<li>The <i>auto_park_mode_graphics()</i> function projects the autopark mode screen.</li>
 </ul><br>
 
 ### Joystick
@@ -111,9 +111,9 @@ The joystick code include all the button's interrupts_handler:
 They all works in the same way: when they're invoked they all check the value of the sel variable to undeerstand in which screen the user is, then every handler do a different thing based on sel and on the button pressed.<br>
 Then we have the mode function:
 <ul>
-	<li>joystick_mode_setup() calls his graphic's function and then check the ADC14 x and y values, converts them and send them to the car.</li>
-	<li>keep_distance(bool on) if on send to the car 3 times the code 202 (enable anticollision) else it send 203 (disable anticollision).</li>
-	<li>auto_park_mode() calls his graphic's function and then send the code 201 to the car til the BACK button is released.</li>
+	<li><i>joystick_mode_setup()</i> calls his graphic's function and then check the ADC14 x and y values, converts them and send them to the car.</li>
+	<li><i>keep_distance(bool on)</i> if on send to the car 3 times the code 202 (enable anticollision) else it send 203 (disable anticollision).</li>
+	<li><i>auto_park_mode()</i> calls his graphic's function and then send the code 201 to the car til the BACK button is released.</li>
 </ul><br>
 
 ## Build, Burn and Run the project

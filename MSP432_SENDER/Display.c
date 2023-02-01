@@ -9,6 +9,7 @@
 #include "LcdDriver/Crystalfontz128x128_ST7735.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include <Display.h>
 #include <string.h>
 
