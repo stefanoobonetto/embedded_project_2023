@@ -13,17 +13,15 @@
 #include <Display.h>
 #include <ConnectionUart.h>
 
-volatile int semaforo = 1;   //semaforo generale per mandare la roba in UART
+volatile int semaforo = 1;   //general semaphore to send data with UART connection
 
-
-
-volatile int cont = 0;    //semaforo per mandare prima X e poi Y
+volatile int cont = 0;    //semaphore to send X and Y in an ordinate way (first X and then Y)
 
 volatile int sel = 0; //general selector --> for back button
 
 //sel VALUES:
 //0 --> WELCOME screen
-//1 --> prima schermata di selezione
+//1 --> first_menu screen
 //2 --> joystick mode no kd
 //3 --> joystick mode kd
 //4 --> auto_park
@@ -43,14 +41,6 @@ void adcInit(){
 
    GPIO_setAsInputPinWithPullUpResistor(GPIO_PORT_P3, GPIO_PIN5); //S2 boosterpack
    GPIO_enableInterrupt(GPIO_PORT_P3, GPIO_PIN5);
-
-   //Configure P1.0
-   GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-   GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
-
-   //Configure P2.1
-   GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN1);
-   GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN1);
 
    Interrupt_enableInterrupt(INT_PORT1);
    Interrupt_enableInterrupt(INT_PORT3);
@@ -89,13 +79,6 @@ void PORT1_IRQHandler(void) //BACK button
     GPIO_clearInterruptFlag(GPIO_PORT_P1, status);
 
     if(status & GPIO_PIN4){
-        //sel values
-        //0 --> WELCOME screen,
-        //1 --> prima schermata di selezione,
-        //2 --> joystick mode no kd,
-        //3 --> joystick mode kd,
-        //4 --> auto_park
-
         switch(sel){
             case 0:
                 break;
@@ -125,20 +108,6 @@ void PORT3_IRQHandler(void){ //DOWN button
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P3);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P3, status);
-    printf("secondo bottone\n");
-
-    /*sel values
-    0 --> WELCOME screen,
-    1 --> prima schermata di selezione,
-    2 --> joystick mode no kd,
-    3 --> joystick mode kd,
-    4 --> auto_park
-    */
-
-    //sel1 values
-    //0 --> joystick mode no kd,
-    //1 --> joystick mode kd,
-    //2 --> auto_park
 
     if(status & GPIO_PIN5){
         switch(sel){
@@ -158,11 +127,7 @@ void PORT3_IRQHandler(void){ //DOWN button
                         break;
                 }
                 break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            default:
+           default:
                 break;
             }
     }
@@ -172,20 +137,6 @@ void PORT4_IRQHandler(void){ //JOYSTICK SELECT
     uint_fast16_t status = GPIO_getEnabledInterruptStatus(GPIO_PORT_P4);
 
     GPIO_clearInterruptFlag(GPIO_PORT_P4, status);
-    printf("SONO qui\n");
-
-    /*sel values
-    0 --> WELCOME screen,
-    1 --> prima schermata di selezione,
-    2 --> joystick mode no kd,
-    3 --> joystick mode kd,
-    4 --> auto_park
-    */
-
-    //sel1 values
-    //0 --> joystick mode no kd,
-    //1 --> joystick mode kd,
-    //2 --> auto_park
 
     if(status & GPIO_PIN1){
         switch(sel){
@@ -211,12 +162,6 @@ void PORT4_IRQHandler(void){ //JOYSTICK SELECT
                         auto_park_mode();
                         break;
                 }break;
-//             case 2:
-//                 break;
-//             case 3:
-//                 break;
-//             case 4:
-//                 break;
              default:
                  break;
         }
@@ -231,20 +176,6 @@ void PORT5_IRQHandler(void){  //UP button
     printf("Primo bottone\n");
 
     if(status & GPIO_PIN1){
-
-
-        /*sel values
-        0 --> WELCOME screen,
-        1 --> prima schermata di selezione,
-        2 --> joystick mode no kd,
-        3 --> joystick mode kd,
-        4 --> auto_park
-        */
-
-        //sel1 values
-        //0 --> joystick mode no kd,
-        //1 --> joystick mode kd,
-        //2 --> auto_park
 
         switch(sel){
             case 0:
@@ -264,8 +195,6 @@ void PORT5_IRQHandler(void){  //UP button
                         draw_circle(1);
                         break;
                 }break;
-//            case 3:
-//                break;
             default:
                 break;
         }
@@ -289,23 +218,24 @@ void auto_park_mode(){
 void keep_distance(bool on){
     int contatore=0;
 
-
-    if(on){
-        uint8_t auto_park = 202;
-        for(contatore=0;contatore<3;contatore++){//codice keep_distance_mode = 202
-            UART_transmitData(EUSCI_A2_BASE, auto_park);
+    if(on && semaforo){
+        semaforo = 0;
+        uint8_t kd = 202;
+        for(contatore=0;contatore<3;contatore++){                     //code enable keep_distance_mode = 202
+            UART_transmitData(EUSCI_A2_BASE, kd);
         }
+        semaforo = 1
     }
-    else{
-        uint8_t auto_park = 203;
-        for(contatore=0;contatore<3;contatore++){//codice keep_distance_mode = 202
-            UART_transmitData(EUSCI_A2_BASE, auto_park);
+    else if(!on && semaforo){
+        semaforo = 0;
+        uint8_t kd = 203;
+        for(contatore=0;contatore<3;contatore++){                    //code disable keep_distance_mode = 203
+            UART_transmitData(EUSCI_A2_BASE, kd);
         }
+        semaforo = 1;
     }
-
-
-
 }
+
 void joystick_mode_setup(){
 
     joystick_mode_graphics(sel1);
@@ -315,14 +245,14 @@ void joystick_mode_setup(){
         int x = (int)(ADC14_getResult(ADC_MEM0));
         int y = (int)(ADC14_getResult(ADC_MEM1));
 
-        x = (x - 8150)/82 ; // tra -100 e 100
+        x = (x - 8150)/82 ; 
         y = (y - 8150)/82 ;
 
         x = x/2 ;
         y = y/2 ;
 
-        x = x +  49; // tra 0 e 100 trasmetto x
-        y = y + 149; // tra 100 e 200 trasmetto y
+        x = x +  49;                // x --> [0; 99]
+        y = y + 149;                // y --> [100; 199]
 
         uint8_t X = (uint8_t)x;
         uint8_t Y = (uint8_t)y;
@@ -380,15 +310,8 @@ void joystick_mode_setup(){
     }
 }
 
-void ADC14_IRQHandler(void)
-{
-    //sel values
-    //0 --> WELCOME screen,
-    //1 --> prima schermata di selezione,
-    //2 --> joystick mode no kd,
-    //3 --> joystick mode kd,
-    //4 --> auto_park
-
+void ADC14_IRQHandler(void){
+   
     uint64_t status;
 
     status = ADC14_getEnabledInterruptStatus();
