@@ -11,8 +11,8 @@
  */
 void main(void)
 {
-    WDT_A_holdTimer();
 
+    WDT_A_holdTimer();
     hwInit_motori();
     configUART();
     configUltraSonic();
@@ -41,4 +41,5 @@ void main(void)
         }
 
     }
+
 }
