@@ -32,7 +32,6 @@ void initWIFI(){
 }
 
 void setup() {
-  
   // Set up Serial Monitor
   Serial.begin(115200);
   // Init wifi
