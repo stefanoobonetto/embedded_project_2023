@@ -118,7 +118,7 @@ Then we have the mode function:
 
 ### Motors
 
-In the receiver MSP432 we use an interrupt to take the number via UART and then decode it to know the mode and movement of the motors. For motors we use the PWM technique to make them go at the speed we want.
+For the receiver MSP432 we use an interrupt to take the number via UART and then decode it to know the mode and movement of the motors. For motors we use the PWM technique to make them go at the speed we want.
 
 The numbers received by the MSP432 are managed in this way:
 <ul>
