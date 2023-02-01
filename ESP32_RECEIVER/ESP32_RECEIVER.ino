@@ -2,11 +2,13 @@
 #include <esp_now.h>
 #include <WiFi.h>
 #include <HardwareSerial.h>
-
-Servo myservo;  // create servo object to control a servo
  
 int servoPin = 2; // Servo motor pin
 int isDritto = 1; //Boolean for know the position
+
+Servo myservo;  // create servo object to control a servo
+
+HardwareSerial Serial_1(2); // use UART2
 
 void servoDX(){
   myservo.write(0);       // tell servo to go to position in variable 'pos'
@@ -44,11 +46,10 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
     }
   }
 
-  Serial_1.print(myData.a);
+  char x=myData.a;
+  Serial_1.print(x);
 }
 
-HardwareSerial Serial_1(2); // use UART2
- 
 void setup() {  
  //Set UART COMMUNICATION
   Serial_1.begin(115200, SERIAL_8N1, 17, 16);
