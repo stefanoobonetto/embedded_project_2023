@@ -118,17 +118,15 @@ Then we have the mode function:
 
 ### Motors
 
-When the system is in joystick mode we generate two message in a row continuously, one for x and one for y.
-For the second MSP432 we use an interrupt to take the number via UART and then decode to know the mode and movement of the motors. For motors we use the PWM technique to make them go at the speed we want.
+In the receiver MSP432 we use an interrupt to take the number via UART and then decode it to know the mode and movement of the motors. For motors we use the PWM technique to make them go at the speed we want.
 
-The number that the reciver MSP recive are managed in this way:
-
-0-99: used to give the direction to the x axis of the motors, this number is mapped in to the [-50,+50] range and this number is used for decide the power relation between the motors. 
-
-100-199: used to send the power to the y axis of the motors and also this is mapped in to the [-50,+50] range 
-Then we have to generate the message to enable or disable functions:
-
-200-255: are for extra functions, 201 for parking mode, 202 for anti-collision and 203 for normal joystick mode. 
+The numbers received by the MSP432 are managed in this way:
+<ul>
+	<li><b>0-99</b>: used to give the direction to the x axis of the motors, this number is mapped in to the [-50,+50] range and this number is used for decide the 	power relation between the motors.</li> 
+	<li><b>100-199</b>: used to send the power to the y axis of the motors and also this is mapped in to the [-50,+50] range 
+	Then we have to generate the message to enable or disable functions:</li>
+	<li><b>200-255</b>: are for extra functions, 201 for parking mode, 202 for anti-collision and 203 for normal joystick mode.</li> 
+</ul>
 This message will then be sent via UART to the first ESP32
 For the two ESP32 we use the ESP-NOW protocol that allows us to send the 8-bit number via Wi-Fi to the other ESP32
 
