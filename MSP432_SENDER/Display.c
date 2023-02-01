@@ -16,25 +16,6 @@
 Graphics_Context sContext;
 Graphics_Context invisibleContext;
 
-
-
-/*void clear_display_visible(){
-    Graphics_clearDisplay(&sContext);
-
-}
-
-void clear_display_invisible(){
-    Graphics_clearDisplay(&invisibleContext);
-
-}
-
-void draw_rectangle(int v1,int v2,int v3,int v4){
-    Graphics_Rectangle rect1 = {v1, v2, v3, v4};
-    GrRectDraw(&sContext, &rect1);
-
-}
-*/
-
 void draw(char string[],int length,int x,int y){
     Graphics_drawStringCentered(&sContext, (int8_t *)string, length, x, y, OPAQUE_TEXT);
 }
