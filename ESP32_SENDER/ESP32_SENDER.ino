@@ -1,17 +1,11 @@
+#include <Arduino.h>
 #include <esp_now.h>
 #include <WiFi.h>
 #include <HardwareSerial.h>
-#include <Arduino.h>
-#include "BluetoothSerial.h"
 
-//ESP A
+
 
 HardwareSerial SerialPort(2); // use UART2
-
-// Variables for test data
-int int_value;
-float float_value;
-bool bool_value = true;
 
 // MAC Address of responder - edit as required
 uint8_t broadcastAddress[] = {0xC0, 0x49, 0xEF, 0xCD, 0x16, 0xE8};
@@ -27,12 +21,6 @@ struct_message myData;
 // Peer info
 esp_now_peer_info_t peerInfo;
 
-// Callback function called when data is sent
-void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  //Serial.print("\r\nLast Packet Send Status:\t");
-  //Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
-}
-
 void setup() {
   
   // Set up Serial Monitor
@@ -46,9 +34,6 @@ void setup() {
     Serial.println("Error initializing ESP-NOW");
     return;
   }
-
-  // Register the send callback
-  esp_now_register_send_cb(OnDataSent);
   
   // Register peer
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
@@ -66,15 +51,11 @@ void setup() {
 }
 
 void loop() {
-  esp_err_t result;
-  
   if(SerialPort.available())
   {
       //take data via UART
       myData.a = SerialPort.read();
-
-      
       // Send message via ESP-NOW
-      result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+      esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
   }
 }
