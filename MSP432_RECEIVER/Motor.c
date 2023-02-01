@@ -56,7 +56,7 @@ const Timer_A_UpModeConfig upConfig = {
 
 
 
-void pwmEnable()
+void init_pwm()
 {
     /* Configures P5.6 to PM_TA0.4 for using Timer PWM to control motors */
     GPIO_setAsPeripheralModuleFunctionOutputPin(EN_1_PORT, EN_1_PIN,
@@ -102,15 +102,9 @@ void hwInit_motori()
     CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1);
     CS_initClockSignal(CS_ACLK, CS_REFOCLK_SELECT, CS_CLOCK_DIVIDER_1);
 
-    pwmEnable();
-    //Configure P1.0
-    GPIO_setAsOutputPin(GPIO_PORT_P1, GPIO_PIN0);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P1, GPIO_PIN0);
-    //Configure P1.0
-    GPIO_setAsOutputPin(GPIO_PORT_P2, GPIO_PIN1);
-    GPIO_setOutputLowOnPin(GPIO_PORT_P2, GPIO_PIN1);
+    init_pwm();
+
     /* Halting WDT and disabling master interrupts */
-    WDT_A_holdTimer();
     Interrupt_disableMaster();
 
     /* Set the core voltage level to VCORE1 */
@@ -247,9 +241,7 @@ void parcheggioAutomatico(){
         int i=0;
         int j=0;
         int k=0;
-        //servoDX();
         while(i<190){
-            //printf("%d\n",i);
             if(leggiDati()>20){
                 i++;
             }
@@ -277,23 +269,20 @@ void parcheggioAutomatico(){
 
         delayManovra(0,0,20000);
 
-        //un po'avanti
-        //delayManovra(15,15,20000);
-        //delayManovra(0,0,40000);
-        //gira
+        
+        //turn
         delayManovra(-20,0,30000);
         delayManovra(0,0,50000);
         //retro
         delayRetro(15,15,20000);
         delayManovra(0,0,50000);
 
-        //rigira
+        //turn
         delayManovra(0,-20,30000);
 
         setFlagParkEnded(1);
     }
     avanti(0,0);
-    //servoDRITTO();
 }
 
 void joystickMode(int x,int y){

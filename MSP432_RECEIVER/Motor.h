@@ -11,7 +11,7 @@
 
 
 
-void pwmEnable();
+void init_pwm();
 void hwInit_motori();
 void setMotor1Direction(int direction);
 void setMotor2Direction(int direction);
