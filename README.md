@@ -242,7 +242,7 @@ At the beginning we were using a motor shield which wasn't able to serve four mo
     <td>UART and Wi-Fi communication</td><td>Simone Roman</td>
   </tr>
   <tr>
-    <td>Joystick interface, graphics and message sending</td><td>Stefano Bonetto</td>
+    <td>Joystick interface, graphics and controller functions</td><td>Stefano Bonetto</td>
   </tr>
   <tr>
     <td>Sensors setup, Autoparking mode and ABS mode</td><td>Stefano Bonetto, Simone Roman, Mattia Rigon</td>
