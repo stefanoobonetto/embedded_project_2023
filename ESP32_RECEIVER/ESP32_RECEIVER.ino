@@ -1,5 +1,4 @@
 #include "ESP32_Servo.h"
-// Include Libraries
 #include <esp_now.h>
 #include <WiFi.h>
 #include <HardwareSerial.h>
@@ -8,9 +7,6 @@ Servo myservo;  // create servo object to control a servo
  
 int servoPin = 2; // Servo motor pin
 int isDritto = 1; //Boolean for know the position
-
-
-
 
 void servoDX(){
   myservo.write(0);       // tell servo to go to position in variable 'pos'
@@ -75,10 +71,6 @@ void setup() {
   //SETUP SERVO
   myservo.attach(servoPin, 500, 2500);  // attaches the servo on servoPin to the servo object
 }
+
 void loop() {
-
 }
-
-
-
-
