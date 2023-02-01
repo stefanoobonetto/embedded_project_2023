@@ -9,6 +9,7 @@
 #include "LcdDriver/Crystalfontz128x128_ST7735.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include <Display.h>
 
 Graphics_Context sContext;
@@ -33,7 +34,7 @@ void draw_rectangle(int v1,int v2,int v3,int v4){
 }
 */
 
-void draw(char string[],int lenght,int x,int y){
+void draw(char string[],int length,int x,int y){
     Graphics_drawStringCentered(&sContext, (int8_t *)string, length, x, y, OPAQUE_TEXT);
 }
 
